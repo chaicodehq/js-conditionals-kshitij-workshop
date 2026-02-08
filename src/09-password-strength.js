@@ -27,4 +27,51 @@
  */
 export function checkPasswordStrength(password) {
   // Your code here
+  var criteriaCount = 0;
+  var criteria = {
+    upperCase : false,
+    lowerCase : false,
+    number : false,
+    specialChar : false
+  }
+
+  if (password == null || typeof(password) == !String) {
+    return "weak";
+  }
+
+  if (password.length >= 8) {
+    criteriaCount++;
+  }
+
+  for (var i = 0; i < password.length; i++) {
+    if (password.charCodeAt(i) >= 65 && password.charCodeAt(i) <= 90) {
+      criteria.upperCase = true;
+      continue;
+    }
+    if (password.charCodeAt(i) >= 97 && password.charCodeAt(i) <= 122) {
+      criteria.lowerCase = true;
+      continue;
+    }
+    if (password.charAt(i) >= 0 && password.charAt(i) <= 9) {
+      criteria.number = true;
+      continue;
+    }
+    else criteria.specialChar = true;
+  }
+
+  for (const key in criteria) {
+    if (criteria[key] == true) {
+      criteriaCount ++;
+    }
+  }
+
+  if (criteriaCount <= 1) {
+    return "weak";
+  } else if (criteriaCount <= 3) {
+    return "medium"
+  } else if (criteriaCount == 4) {
+    return "strong";
+  } else if (criteriaCount == 5) {
+    return "very strong";
+  }
 }

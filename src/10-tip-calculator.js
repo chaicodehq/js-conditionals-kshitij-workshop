@@ -31,4 +31,26 @@
  */
 export function calculateTip(billAmount, serviceRating) {
   // Your code here
+  if (billAmount <= 0 || !Number.isInteger(serviceRating) || serviceRating < 1 || serviceRating > 5) {
+    return null;
+  }
+
+  var bill = {
+    tipPercentage: null,
+    tipAmount : null,
+    totalAmount : null
+  }
+
+  if (serviceRating == 1) bill.tipPercentage = 5;
+  else if (serviceRating == 2) bill.tipPercentage = 10;
+  else if (serviceRating == 3) bill.tipPercentage = 15;
+  else if (serviceRating == 4) bill.tipPercentage = 20;
+  else if (serviceRating == 5) bill.tipPercentage = 25;
+
+  bill.tipAmount = ((billAmount * bill.tipPercentage) / 100);
+  bill.totalAmount = (billAmount + bill.tipAmount);
+
+  return bill;
 }
+
+
